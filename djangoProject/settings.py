@@ -25,9 +25,17 @@ SECRET_KEY = 'django-insecure-l3mm($6lhdkfs!@--f5cqn&8n8e#soz=a2*4bplkg5#^n67giu
 # 部署时需要关闭调试模式
 DEBUG = False
 
-ALLOWED_HOSTS = ['8.130.137.197']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
+# 修改项。指定需要收集的静态文件的位置
+# 即前端打包文件所在位置
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "frontend/dist/"),
+]
+
+# 新增项。静态文件收集目录
+STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
