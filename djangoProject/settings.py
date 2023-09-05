@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,21 +22,31 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-l3mm($6lhdkfs!@--f5cqn&8n8e#soz=a2*4bplkg5#^n67giu'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# 部署时需要关闭调试模式
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
+
+ASGI_APPLICATION = 'djangoProject.asgi.application'
+WSGI_APPLICATION = 'djangoProject.wsgi.application'
+
+# CHANNEL_LAYERS = {
+#     "default": {
+#         "BACKEND": "channels_redis.core.RedisChannelLayer",
+#         "CONFIG": {
+#             "hosts": [("127.0.0.1", 6379)],
+#         },
+#     },
+# }
+# 存储在内存里
+CHANNEL_LAYERS = {
+     "default": {
+         "BACKEND": "channels.layers.InMemoryChannelLayer",
+     }
+}
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760
 
 # Application definition
-# 修改项。指定需要收集的静态文件的位置
-# 即前端打包文件所在位置
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "frontend/dist/"),
-]
-
-# 新增项。静态文件收集目录
-STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -46,8 +55,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 'corsheaders',
+    'channels',
     'user_info',
-    'ManagePlayer'
+    'group_manage',
+    'station_manage',
+    'message',
+    'file_manage',
+    'page_manage'
+
 ]
 
 MIDDLEWARE = [
@@ -116,7 +131,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'djangoProject.wsgi.application'
+
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -155,7 +170,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 

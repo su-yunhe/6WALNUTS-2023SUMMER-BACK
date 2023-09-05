@@ -20,6 +20,10 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('user_info.urls')),
-    path('', include('ManagePlayer.urls')),
+    path('api/', include('user_info.urls')),
+    path('api/', include('group_manage.urls')),
+    path('api/', include('message.urls')),
+    path('api/', include('file_manage.urls')),
+    path('api/', include('page_manage.urls')),
+    path('api/', include('station_manage.urls')),
 ]

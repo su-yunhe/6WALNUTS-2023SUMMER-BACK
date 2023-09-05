@@ -28,7 +28,7 @@ def create_token(username):
     # 1. 加密头信息
     header = encrypt(HEADER)
     # 2. 构造Payload
-    payload = {"username": username, "iat": time.time(), "exp": time.time()+10.0}
+    payload = {"username": username, "iat": time.time(), "exp": time.time()+1209600.0}
     payload = encrypt(payload)
     # 3. 生成签名
     md5 = hashlib.md5()
